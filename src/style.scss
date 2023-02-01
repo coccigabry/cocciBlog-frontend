@@ -1,0 +1,146 @@
+$lightGreen: #b9e7e7;
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+
+
+.app {
+    display: flex;
+    justify-content: center;
+
+    .container {
+        width: 1024px;
+
+        //GLOBAL
+        .link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        //NAVBAR
+        .navbar {
+            .container {
+                padding: 10px 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .logo {
+                    font-size: 30px;
+                    background-color: $lightGreen;
+                    width: 200px;
+                    height: 80px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .links {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    h6 {
+                        font-size: 16px;
+                        font-weight: 300;
+                    }
+
+                    span {
+                        cursor: pointer;
+                    }
+
+                    .write {
+                        background-color: $lightGreen;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: 1px solid white;
+
+                        &:hover {
+
+                            color: teal;
+                            background-color: #fff;
+                            border: 1px solid black;
+                            transition: 1s ease;
+                        }
+                    }
+                }
+            }
+        }
+
+        //FOOTER
+        footer {
+            margin-top: 100px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            background-color: $lightGreen;
+
+            .logo {
+                font-size: 16px;
+            }
+        }
+
+        //LOGIN & REGISTER
+        .auth {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: $lightGreen;
+
+            h1 {
+                font-size: 20px;
+                color: teal;
+                margin-bottom: 20px;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                padding: 50px;
+                background-color: #fff;
+                width: 200px;
+                gap: 20px;
+
+                input {
+                    padding: 10px;
+                    border: none;
+                    border-bottom: 1px solid gray;
+                }
+
+                button {
+                    padding: 10px;
+                    border: none;
+                    background-color: teal;
+                    color: #fff;
+                    cursor: pointer;
+                }
+
+                p {
+                    font-size: 12px;
+                    color: red;
+                    text-align: center;
+                }
+
+                span {
+                    font-size: 12px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
