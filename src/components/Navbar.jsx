@@ -3,11 +3,15 @@ import { Link } from 'react-router-dom'
 
 
 const Navbar = () => {
-  
+
   return (
     <div className='navbar'>
       <div className='container'>
-        <div className='logo'>Cocci Blog</div>
+        <div className='logo'>
+          <Link className='link' to='/'>
+            Cocci Blog
+          </Link>
+        </div>
         <div className='links'>
           <Link className='link' to='/?cat=art'>
             <h6>ART</h6>
