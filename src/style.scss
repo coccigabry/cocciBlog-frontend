@@ -93,6 +93,52 @@ $lightGreen: #b9e7e7;
             }
         }
 
+        //SIDEBAR
+        .sidebar {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+
+            h1 {
+                font-size: 20px;
+                color: black;
+            }
+
+            .post {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                img {
+                    width: 100%;
+                    height: 200px;
+                    object-fit: cover;
+                }
+
+                h2 {
+                    color: #555;
+                }
+
+                button {
+                    width: max-content;
+                    padding: 7.5px 15px;
+                    cursor: pointer;
+                    background-color: #fff;
+                    border: 1px solid black;
+                    color: teal;
+                    transition: .5s ease;
+
+                    &:hover {
+                        border: 1px solid #fff;
+                        background-color: $lightGreen;
+                        color: black;
+                    }
+                }
+
+            }
+        }
+
         //HOMEPAGE
         .home {
             .posts {
@@ -162,6 +208,73 @@ $lightGreen: #b9e7e7;
                         }
                     }
                 }
+            }
+        }
+
+        //SINGLE POST
+        .single {
+            display: flex;
+            gap: 50px;
+
+            .content {
+                flex: 5;
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+
+                img {
+                    width: 100%;
+                    height: 300px;
+                    object-fit: cover;
+                }
+
+                .user {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-size: 14px;
+
+                    img {
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+
+                    span {
+                        font-weight: bold;
+                    }
+                }
+
+                .edit {
+                    display: flex;
+                    gap: 5px;
+
+                    .edit-icon {
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50%;
+                        padding: 5px;
+                        cursor: pointer;
+                        color: black;
+                    }
+                }
+
+                .text {
+                    h1 {
+                        font-size: 42px;
+                        color: #333;
+                        margin-bottom: 20px;
+                    }
+                    p {
+                        text-align: justify;
+                        line-height: 30px;
+                    }
+                }
+            }
+
+            .menu {
+                flex: 2;
             }
         }
 
