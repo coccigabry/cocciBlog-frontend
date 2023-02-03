@@ -1,6 +1,6 @@
 # Cocci Blog (frontend)
 
-Check out all lastest and remember... Only registered users can write new posts!
+The main stuctured for a blog where users can register and write posts.
 <br>
 (backend source code: https://github.com/coccigabry/cocciBlog-backend)
 <br><br>
