@@ -18,7 +18,7 @@ function App() {
             <Route element={<Layout />}>
               <Route exact path="/" element={<Home />} />
 
-              <Route path="/post" element={<SinglePost />} />
+              <Route path="/post/:id" element={<SinglePost />} />
               <Route path="/write" element={<WritePosts />} />
             </Route>
 

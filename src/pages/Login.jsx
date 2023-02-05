@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/context'
@@ -30,7 +29,7 @@ const Login = () => {
       await login(inputs)
       navigate('/')
     } catch (err) {
-      setErr(err.response.data)
+      setErr(err)
     }
   }
 

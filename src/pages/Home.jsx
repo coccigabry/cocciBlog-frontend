@@ -1,9 +1,24 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import posts from '../data.js'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 
 const Home = () => {
+  const [posts, setPosts] = useState([])
+
+  const cat = useLocation().search
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:4000/api/posts${cat}`)
+        setPosts(res.data)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    fetchData()
+  }, [cat])
 
   const renderPosts = posts.map(post => {
     const { id, title, desc, img } = post
@@ -16,8 +31,8 @@ const Home = () => {
           <Link className='link' to={`/post/${id}`}>
             <h1>{title}</h1>
           </Link>
-            <p>{desc}</p>
-            <button>Read more</button>
+          <p>{desc}</p>
+          <button>Read more</button>
         </div>
       </div>
     )
