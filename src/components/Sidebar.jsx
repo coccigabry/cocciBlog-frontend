@@ -1,16 +1,34 @@
-import React from 'react'
-import posts from '../data'
+import axios from 'axios'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 
-const Sidebar = () => {
+const Sidebar = ({ cat }) => {
+    const [posts, setPosts] = useState([])
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`http://localhost:4000/api/posts/?cat=${cat}`)
+                setPosts(res.data)
+            } catch (err) {
+                console.error(err)
+            }
+        }
+        fetchData()
+    }, [cat])
 
     const renderPosts = posts.map(post => {
-        const { id, title, img } = post
+        const { id, title, desc, img } = post
         return (
             <div className='post' key={id}>
                 <img src={img} alt='' />
                 <h2>{title}</h2>
-                <button>Read more</button>
+                <p>{desc.substring(0, 150)}...</p>
+                <Link className='link' to={`/post/${id}`}>
+                    <button>Read more</button>
+                </Link>
             </div>
         )
     })

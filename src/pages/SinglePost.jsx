@@ -12,14 +12,19 @@ const SinglePost = () => {
   const [post, setPost] = useState({})
   const { currentUser } = useContext(AuthContext)
 
+  const user = currentUser?.other
+  const token = currentUser?.token
+
   const { id } = useParams()
   const navigate = useNavigate()
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`http://localhost:4000/api/posts/${id}`)
         setPost(res.data[0])
+        window.scrollTo(0, 0)
       } catch (err) {
         console.error(err)
       }
@@ -29,7 +34,11 @@ const SinglePost = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:4000/api/posts/${id}`)
+      await axios.delete(`http://localhost:4000/api/posts/${id}`, {
+        headers: {
+          token: `Bearer ${token}`
+        }
+      })
       navigate('/')
     } catch (err) {
       console.error(err)
@@ -48,7 +57,7 @@ const SinglePost = () => {
             <p>Posted {post.date ? moment(post.date).fromNow() : 'date not available'}</p>
           </div>
           {
-            currentUser && currentUser.username === post.username &&
+            currentUser && user.username === post.username &&
             <div className="edit">
               <Link to={`/write?edit=2`}>
                 <RiEditLine className='icon edit-icon' style={{ backgroundColor: 'lightblue' }} />
@@ -62,7 +71,7 @@ const SinglePost = () => {
           <p>{post.desc}</p>
         </div>
       </div>
-      <Sidebar />
+      <Sidebar cat={post.cat} />
     </div>
   )
 }

@@ -28,11 +28,11 @@ const Home = () => {
           <img src={img} alt='' />
         </div>
         <div className='content'>
-          <Link className='link' to={`/post/${id}`}>
-            <h1>{title}</h1>
-          </Link>
+          <h1>{title}</h1>
           <p>{desc}</p>
-          <button>Read more</button>
+          <Link className='link' to={`/post/${id}`}>
+            <button>Read more</button>
+          </Link>
         </div>
       </div>
     )
