@@ -1,26 +1,31 @@
-import React from 'react'
+import React, {useState} from 'react'
 import axios from 'axios'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { RiDeleteBin2Line } from 'react-icons/ri';
 
 
 const WritePosts = () => {
-  const [values, setValues] = React.useState({ title: '', desc: '', cat: '' });
-  const [img, setImg] = React.useState(null);
+  const [values, setValues] = useState({ title: '', img: {}, cat: '' });
+  const [desc, setDesc] = useState('');
 
 
   const handleValues = (e) => {
-    const name = e.target.name
-    const value = e.target.value
-    setValues({ ...values, [name]: value })
+    if (e.target.name === 'img') {
+      setValues({ ...values, img: e.target.files[0] })
+    } else {
+      const name = e.target.name
+      const value = e.target.value
+      setValues({ ...values, [name]: value })
+    }
   }
 
   const upload = async () => {
     try {
       const formData = new FormData()
-      formData.append('file', img)
+      formData.append('file', values.img)
       const res = await axios.post('http://localhost:4000/api/upload', formData)
-      console.log(res.data)
+      return res.data
     } catch (err) {
       console.error(err)
     }
@@ -28,7 +33,12 @@ const WritePosts = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    upload()
+    const imgUrl = upload()
+    try {
+      // check if creating new post or editing existing one
+    } catch (err) {
+      console.error(err)
+    }
   }
 
 
@@ -47,8 +57,8 @@ const WritePosts = () => {
             className='editor'
             theme="snow"
             name='desc'
-            value={values.desc}
-            onChange={handleValues}
+            value={desc}
+            onChange={setDesc}
           />
         </div>
       </div>
@@ -61,16 +71,27 @@ const WritePosts = () => {
           <span>
             <b>Visibility: </b> Public
           </span>
-          <input
-            style={{ display: 'none' }}
-            type='file' 
-            id='file'
-            onChange={(e) => setImg(e.target.files[0])}
-          />
-          <label className='file' htmlFor='file'>Upload Image</label>
-          {img &&
-            <span>Image uploaded</span>
-          }
+          <div className="img-uploader">
+            <input
+              style={{ display: 'none' }}
+              type='file'
+              id='file'
+              name='img'
+              onChange={handleValues}
+            />
+            <label className='file' htmlFor='file'>Upload Image</label>
+            {
+              values.img.name &&
+              <span>
+                {values.img.name}
+                <RiDeleteBin2Line
+                  className="uploader-icon"
+                  onClick={() => setValues({ ...values, img: {} })}
+                  title='remove image'
+                />
+              </span>
+            }
+          </div>
           <div className="buttons">
             <button>Save as a draft</button>
             <button onClick={handleSubmit}>Submit</button>

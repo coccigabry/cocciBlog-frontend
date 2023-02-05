@@ -7,7 +7,7 @@ import { AuthContext } from '../context/context'
 const Navbar = () => {
   const { currentUser, logout } = useContext(AuthContext)
 
-  const user = currentUser.other
+  const user = currentUser?.other
 
 
   return (

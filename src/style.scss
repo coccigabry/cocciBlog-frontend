@@ -332,13 +332,31 @@ $lightGreen: #b9e7e7;
                     justify-content: space-between;
                     font-size: 12px;
 
-                    h1 {
-                        font-size: 20px;
+                    .img-uploader{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .file {
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+
+                        span {
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+
+                            .uploader-icon {
+                                font-size: 16px;
+                                color: red;
+                                cursor: pointer;
+                            }
+                        }
                     }
 
-                    .file {
-                        text-decoration: underline;
-                        cursor: pointer;
+                    h1 {
+                        font-size: 20px;
                     }
 
                     .buttons {
