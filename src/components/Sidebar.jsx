@@ -19,13 +19,18 @@ const Sidebar = ({ cat }) => {
         fetchData()
     }, [cat])
 
+    const innerHTMLreplacer = (html) => {
+        const doc = new DOMParser().parseFromString(html, 'text/html')
+        return doc.body.textContent
+      }
+
     const renderPosts = posts.map(post => {
         const { id, title, desc, img } = post
         return (
             <div className='post' key={id}>
-                <img src={img} alt='' />
+                <img src={img.charAt(0) === 'h' ? img : `../../uploads/${img}`} alt='' />
                 <h2>{title}</h2>
-                <p>{desc.substring(0, 150)}...</p>
+                <p>{innerHTMLreplacer(desc).substring(0, 150)}...</p>
                 <Link className='link' to={`/post/${id}`}>
                     <button>Read more</button>
                 </Link>

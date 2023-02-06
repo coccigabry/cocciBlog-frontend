@@ -20,16 +20,21 @@ const Home = () => {
     fetchData()
   }, [cat])
 
+  const innerHTMLreplacer = (html) => {
+    const doc = new DOMParser().parseFromString(html, 'text/html')
+    return doc.body.textContent
+  }
+
   const renderPosts = posts.map(post => {
     const { id, title, desc, img } = post
     return (
       <div className='post' key={id}>
         <div className='img'>
-          <img src={img} alt='' />
+          <img src={img.charAt(0) === 'h' ? img : `../../uploads/${img}`} alt='' />
         </div>
         <div className='content'>
           <h1>{title}</h1>
-          <p>{desc}</p>
+          <p>{innerHTMLreplacer(desc)}</p>
           <Link className='link' to={`/post/${id}`}>
             <button>Read more</button>
           </Link>

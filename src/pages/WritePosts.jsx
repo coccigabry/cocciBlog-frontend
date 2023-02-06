@@ -1,13 +1,27 @@
-import React, {useState} from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { RiDeleteBin2Line } from 'react-icons/ri';
+import { useLocation, useNavigate } from 'react-router-dom';
+import moment from 'moment';
+import { AuthContext } from '../context/context';
 
 
 const WritePosts = () => {
-  const [values, setValues] = useState({ title: '', img: {}, cat: '' });
-  const [desc, setDesc] = useState('');
+  const { currentUser } = useContext(AuthContext)
+  const token = currentUser.token
+
+  const state = useLocation().state
+
+  const navigate = useNavigate()
+
+  const [values, setValues] = useState({
+    title: state?.title || '',
+    img: {},
+    cat: state?.cat || ''
+  });
+  const [desc, setDesc] = useState(state?.desc || '');
 
 
   const handleValues = (e) => {
@@ -33,9 +47,35 @@ const WritePosts = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const imgUrl = upload()
+    const imgUrl = await upload()
     try {
-      // check if creating new post or editing existing one
+      if (state) {
+        const res = await axios.put(`http://localhost:4000/api/posts/${state.id}`, {
+          title: values.title,
+          desc,
+          img: values.img ? imgUrl : '',
+          cat: values.cat
+        })
+        console.log(res.data)
+      } else {
+        const res = await axios.post(
+          `http://localhost:4000/api/posts`,
+          {
+            title: values.title,
+            desc,
+            img: values.img ? imgUrl : '',
+            date: moment(Date.now()).format("YYYY-MM-DD HH:mm"),
+            cat: values.cat
+          },
+          {
+            headers: {
+              token: `Bearer ${token}`
+            }
+          }
+        )
+        console.log(res.data)
+      }
+      navigate('/')
     } catch (err) {
       console.error(err)
     }
@@ -102,6 +142,7 @@ const WritePosts = () => {
           <div className="cat-cnt">
             <input
               type="radio"
+              checked={values.cat === 'art'}
               name='cat'
               value='art'
               id='art'
@@ -112,6 +153,7 @@ const WritePosts = () => {
           <div className="cat-cnt">
             <input
               type="radio"
+              checked={values.cat === 'tech'}
               name='cat'
               value='tech'
               id='tech'
@@ -122,6 +164,7 @@ const WritePosts = () => {
           <div className="cat-cnt">
             <input
               type="radio"
+              checked={values.cat === 'design'}
               name='cat'
               value='design'
               id='design'
@@ -132,6 +175,7 @@ const WritePosts = () => {
           <div className="cat-cnt">
             <input
               type="radio"
+              checked={values.cat === 'food'}
               name='cat'
               value='food'
               id='food'
@@ -142,6 +186,7 @@ const WritePosts = () => {
           <div className="cat-cnt">
             <input
               type="radio"
+              checked={values.cat === 'travel'}
               name='cat'
               value='travel'
               id='travel'
